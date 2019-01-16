@@ -1,0 +1,1 @@
+SUBSYSTEM=="graphics" ACTION=="add" ENV{DEVNAME}=="/dev/fb1", RUN+="/bin/systemctl start fbcp"

@@ -1,0 +1,11 @@
+[Unit]
+Description=fbcp Service
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi
+ExecStart=/usr/local/bin/fbcp
+
+[Install]
+WantedBy=multi-user.target
