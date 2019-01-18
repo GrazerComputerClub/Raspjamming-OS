@@ -6,6 +6,7 @@ Type=simple
 User=pi
 WorkingDirectory=/home/pi
 ExecStart=/usr/local/bin/fbcp
+ExecStopPost=/usr/bin/sudo /usr/bin/fbi -T 1 -d /dev/fb1 --noverbose -a /boot/png/display_off.png
 
 [Install]
 WantedBy=multi-user.target

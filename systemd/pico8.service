@@ -1,0 +1,15 @@
+[Unit]
+Description=fbcp Service
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/boot/pico8/
+ExecStart=/boot/pico-8/pico8 -splore
+#StandardInput=tty
+#StandardOutput=tty
+
+
+[Install]
+WantedBy=multi-user.target
+

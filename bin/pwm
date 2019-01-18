@@ -1,0 +1,24 @@
+#!/bin/bash
+
+PWM=`cat /dev/shm/pwm`
+if [ "$1" == "init" ] ; then
+	gpio -g mode 12 pwm
+	gpio pwmr 8192
+	gpio pwmc 4095
+	PWM=6144
+	touch /dev/shm/pwm
+	chmod o+w /dev/shm/pwm
+elif [ "$1" == "-" ] ; then
+	if [ $PWM -lt 8192 ] ; then
+		PWM=$[$PWM + 512]
+	fi
+elif [ "$1" == "+" ] ; then
+	if [ $PWM -ge 512 ] ; then
+		PWM=$[$PWM - 512]
+	fi
+fi
+gpio -g pwm 12 $PWM
+echo $PWM
+echo $PWM > /dev/shm/pwm
+
+

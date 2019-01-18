@@ -1,0 +1,18 @@
+[Unit]
+Description=Off Screen
+DefaultDependencies=no
+Before=shutdown.target halt.target
+#After=final.target
+#Before=final.target
+RequiresMountsFor=/boot
+
+[Service]
+User=root
+Type=oneshot
+ExecStart=/usr/bin/fbi -T 1 -d /dev/fb1 --noverbose -a /boot/png/switch_off.png
+RemainAfterExit=yes
+
+[Install]
+#WantedBy=final.target
+WantedBy=halt.target shutdown.target
+

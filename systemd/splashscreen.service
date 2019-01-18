@@ -1,0 +1,17 @@
+[Unit]
+Description=Splash screen
+DefaultDependencies=no
+#Conflicts=reboot.target
+After=local-fs.target
+
+[Service]
+#Type=oneshot
+User=root
+ExecStart=/usr/bin/fbi -d /dev/fb1 --noverbose -a /boot/png/splash.png
+StandardInput=tty
+StandardOutput=tty
+RemainAfterExit=yes
+
+[Install]
+WantedBy=sysinit.target
+
