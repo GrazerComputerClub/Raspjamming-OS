@@ -7,7 +7,7 @@ After=local-fs.target
 [Service]
 #Type=oneshot
 User=root
-ExecStart=/usr/bin/fbi -d /dev/fb1 --noverbose -a /boot/png/splash.png
+ExecStart=/usr/bin/fbi -d /dev/fb1 --noverbose -a /usr/share/png/splash.png
 StandardInput=tty
 StandardOutput=tty
 RemainAfterExit=yes
