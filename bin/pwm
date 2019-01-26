@@ -1,24 +1,31 @@
 #!/bin/bash
 
-PWM=`cat /dev/shm/pwm`
+PWM=`cat /sys/class/pwm/pwmchip0/pwm0/duty_cycle`
 if [ "$1" == "init" ] ; then
-	gpio -g mode 12 pwm
-	gpio pwmr 8192
-	gpio pwmc 4095
-	PWM=6144
-	touch /dev/shm/pwm
-	chmod o+w /dev/shm/pwm
+  #need sudo!
+  gpio -g mode 12 pwm
+  chown -R root:gpio /sys/class/pwm && chmod -R 770 /sys/class/pwm
+  chown -R root:gpio /sys/devices/platform/soc/*.pwm/pwm/pwmchip*
+  chmod -R 770 /sys/devices/platform/soc/*.pwm/pwm/pwmchip*
+  echo 0 > /sys/class/pwm/pwmchip0/export
+	echo 1000 > /sys/class/pwm/pwmchip0/pwm0/period
+  PWM=600
+  echo $PWM > /sys/class/pwm/pwmchip0/pwm0/duty_cycle
+  echo 1 > /sys/class/pwm/pwmchip0/pwm0/enable
 elif [ "$1" == "-" ] ; then
-	if [ $PWM -lt 8192 ] ; then
-		PWM=$[$PWM + 512]
+	if [ $PWM -lt 500 ] ; then
+		PWM=$[$PWM + 100]
+	elif [ $PWM -lt 1000 ] ; then
+		PWM=$[$PWM + 50]
 	fi
 elif [ "$1" == "+" ] ; then
-	if [ $PWM -ge 512 ] ; then
-		PWM=$[$PWM - 512]
+	if [ $PWM -ge 550 ] ; then
+		PWM=$[$PWM - 50]
+	elif [ $PWM -ge 100 ] ; then
+		PWM=$[$PWM - 100]
 	fi
 fi
-gpio -g pwm 12 $PWM
-echo $PWM
-echo $PWM > /dev/shm/pwm
+echo PWM duty: $PWM of 1000
+echo $PWM > /sys/class/pwm/pwmchip0/pwm0/duty_cycle
 
 

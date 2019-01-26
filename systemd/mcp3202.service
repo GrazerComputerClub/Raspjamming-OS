@@ -1,0 +1,16 @@
+[Unit]
+Description=Voltage logger
+Wants=dev-spidev0.1.device
+After=dev-spidev0.1.device
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/log/
+ExecStart=/usr/local/bin/mcp3202 
+StandardOutput=null
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
+
