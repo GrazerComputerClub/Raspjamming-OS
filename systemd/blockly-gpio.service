@@ -1,0 +1,14 @@
+[Unit]
+Description=Blockly-gPIo server
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/opt/Blockly-gPIo/
+ExecStart=/usr/bin/python3 /opt/Blockly-gPIo/run.py 
+StandardOutput=null
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target
+
