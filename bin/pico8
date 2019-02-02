@@ -7,6 +7,5 @@ if [ -f "/boot/pico-8/pico8" ] ; then
 	# Start framebuffer copying process in the background
 	sleep 2
 	systemctl start fbcp
-	sleep 3
-  /usr/local/bin/pwm init
+  systemctl restart triggerhappy
 fi
