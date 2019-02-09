@@ -1,31 +1,38 @@
 #!/bin/bash
 
-PWM=`cat /sys/class/pwm/pwmchip0/pwm0/duty_cycle`
-if [ "$1" == "init" ] ; then
-  #need sudo!
-  gpio -g mode 12 pwm
-  chown -R root:gpio /sys/class/pwm && chmod -R 770 /sys/class/pwm
-  chown -R root:gpio /sys/devices/platform/soc/*.pwm/pwm/pwmchip*
-  chmod -R 770 /sys/devices/platform/soc/*.pwm/pwm/pwmchip*
+# 30000 ms = 200 Hz
+PERIOD=30000 
+PERIOD_FINE_LIMIT=25000
+# 20K/30K = 33% brightness 
+DUTY_TIME_INIT=20000
+BIG=1000
+SMALL=500
+if [ "$1" == "init" ] ; then   #need's sudo!
+  PWM=$DUTY_TIME_INIT
+  #init and activate PWM0
   echo 0 > /sys/class/pwm/pwmchip0/export
-	echo 1000 > /sys/class/pwm/pwmchip0/pwm0/period
-  PWM=600
+  chmod 666 /sys/class/pwm/pwmchip0/pwm0/duty_cycle
+  echo $PERIOD > /sys/class/pwm/pwmchip0/pwm0/period
   echo $PWM > /sys/class/pwm/pwmchip0/pwm0/duty_cycle
   echo 1 > /sys/class/pwm/pwmchip0/pwm0/enable
+  #set GPIO12 to PWM0  
+  gpio -g mode 12 pwm
 elif [ "$1" == "-" ] ; then
-	if [ $PWM -lt 500 ] ; then
-		PWM=$[$PWM + 100]
-	elif [ $PWM -lt 1000 ] ; then
-		PWM=$[$PWM + 50]
+  PWM=`cat /sys/class/pwm/pwmchip0/pwm0/duty_cycle`
+	if [ $PWM -lt $PERIOD_FINE_LIMIT ] ; then
+		PWM=$[$PWM + $BIG]
+	elif [ $PWM -lt $PERIOD ] ; then
+		PWM=$[$PWM + $SMALL]
 	fi
 elif [ "$1" == "+" ] ; then
-	if [ $PWM -ge 550 ] ; then
-		PWM=$[$PWM - 50]
-	elif [ $PWM -ge 100 ] ; then
-		PWM=$[$PWM - 100]
+  PWM=`cat /sys/class/pwm/pwmchip0/pwm0/duty_cycle`
+	if [ $PWM -gt $PERIOD_FINE_LIMIT ] ; then
+		PWM=$[$PWM - $SMALL]
+	elif [ $PWM -ge $BIG ] ; then
+		PWM=$[$PWM - $BIG]
 	fi
 fi
-echo PWM duty: $PWM of 1000
+PERCENT=$((($PERIOD-$PWM)*100/$PERIOD))
+echo Brightness: ${PERCENT}% [duty ${PWM}/${PERIOD}ms]
 echo $PWM > /sys/class/pwm/pwmchip0/pwm0/duty_cycle
-
 

@@ -1,0 +1,12 @@
+[Unit]
+Description=Activate PWM0 at GPIO12
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/usr/local/bin/pwm init
+StandardOutput=syslog
+
+[Install]
+WantedBy=sysinit.target
+

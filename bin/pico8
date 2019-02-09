@@ -1,11 +1,10 @@
 #!/bin/bash
 
 if [ -f "/boot/pico-8/pico8" ] ; then
-  /usr/local/bin/pwm init
-	#sleep 2
 	systemctl start pico8
 	# Start framebuffer copying process in the background
 	sleep 2
 	systemctl start fbcp
+  systemctl start pwm
   systemctl restart triggerhappy
 fi
