@@ -12,10 +12,14 @@ MEM_AVAI=`cat /proc/meminfo | grep MemAvailable | awk {'print $2'}`
 MEM_TOTAL_MB=$((${MEM_TOTAL}/1024))
 MEM_FREE_MB=$((${MEM_FREE}/1024))
 MEM_AVAI_MB=$((${MEM_AVAI}/1024))
+MEM_PERCENT=$((${MEM_AVAI}*100/${MEM_TOTAL}))
 RPI_TYPE=`gpio -v | grep Type | cut -c 9-`
 CPU_TEMP=`cat /sys/class/thermal/thermal_zone0/temp`
-SD_SIZE=`df -h  | grep  /dev/root | awk {'print $2}'`
-SD_FREE=`df -h  | grep  /dev/root | awk {'print $4}'`
+SD_SIZE=`df -h | grep /dev/root | awk {'print $2}'`
+SD_SIZE_MB=`df | grep /dev/root | awk {'print $2}'`
+SD_FREE=`df -h | grep /dev/root | awk {'print $4}'`
+SD_FREE_MB=`df | grep /dev/root | awk {'print $4}'`
+SD_PERCENT=$((${SD_FREE_MB}*100/${SD_SIZE_MB}))
 
 
 echo "\033[0;32m
@@ -28,14 +32,19 @@ echo "\033[0;32m
   ~ .~ (   ) ~. ~  \033[0;37m               /_/  |___/                        /___/    \033[0;31m
    (  : '~' :  )
     '~ .~~~. ~'
-        '~'
+        '~'"
+echo "\033[1;37m      ___   ___  ____ 
+     / __) / __)(___ \\
+    ( (_ \( (__  / __/ 
+ by  \___/ \___)(____)  GRAZER COMPUTER CLUB
 "
+
 echo -n "\033[0;37m"
 echo "Datum:          `date +"%A, %e %B %Y, %R"`"
 echo "System:         `uname -srmo`"
 echo "Type:           ${RPI_TYPE}"
 echo "CPU Temperatur: $((${CPU_TEMP}/1000))*C"
-echo "Speicher frei:  ${MEM_AVAI_MB}MB von ${MEM_TOTAL_MB}MB"
-echo "SD Karte frei:  ${SD_FREE}B von ${SD_SIZE}"B
+echo "Speicher frei:  ${MEM_PERCENT}% (${MEM_AVAI_MB}MB / ${MEM_TOTAL_MB}MB)"
+echo "SD Karte frei:  ${SD_PERCENT}% (${SD_FREE}B / ${SD_SIZE}B)"
 echo "Laufzeit:       ${UPTIME}"
 
