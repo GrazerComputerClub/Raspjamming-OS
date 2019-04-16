@@ -4,7 +4,7 @@ Description=PICO-8 Service
 [Service]
 Type=simple
 User=pi
-WorkingDirectory=/boot/pico8/
+WorkingDirectory=/boot/pico-8/
 ExecStart=/boot/pico-8/pico8 -splore
 #StandardInput=tty
 #StandardOutput=tty
