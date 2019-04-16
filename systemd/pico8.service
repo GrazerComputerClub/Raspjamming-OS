@@ -1,5 +1,5 @@
 [Unit]
-Description=fbcp Service
+Description=PICO-8 Service
 
 [Service]
 Type=simple
