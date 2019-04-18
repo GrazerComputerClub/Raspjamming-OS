@@ -1,0 +1,16 @@
+[Unit]
+Description=Show ip address after boot
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=pi
+Nice=19
+WorkingDirectory=/usr/local/bin/
+ExecStart=/usr/bin/mono /usr/local/bin/wiringpi.net.sensors.sample.exe 4
+StandardOutput=tty
+
+[Install]
+WantedBy=multi-user.target
+
