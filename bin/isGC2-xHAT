@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# bash alias GC2-xHAT
+if [ -f /proc/device-tree/hat/product_id ]; then
+    PRODUCT_ID=$(tr -d '\0' < /proc/device-tree/hat/product_id)
+    if [ "${PRODUCT_ID}" == "0x6c20" ]; then
+        echo ${PRODUCT_ID}
+	exit 0
+    fi
+fi
+echo "" 
+exit 1 

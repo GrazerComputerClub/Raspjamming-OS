@@ -20,7 +20,9 @@ SD_SIZE_MB=`df | grep /dev/root | awk {'print $2}'`
 SD_FREE=`df -h | grep /dev/root | awk {'print $4}'`
 SD_FREE_MB=`df | grep /dev/root | awk {'print $4}'`
 SD_PERCENT=$((${SD_FREE_MB}*100/${SD_SIZE_MB}))
-
+HAT_PRODUCT_ID=$(tr -d '\0' < /proc/device-tree/hat/product_id)
+HAT_PRODUCT=$(tr -d '\0' < /proc/device-tree/hat/product)
+HAT_VENDOR=$(tr -d '\0' < /proc/device-tree/hat/vendor)
 
 echo "\033[0;32m
     .~~.   .~~.
@@ -42,9 +44,12 @@ echo "\033[1;37m      ___   ___  ____
 echo -n "\033[0;37m"
 echo "Datum:          `date +"%A, %e %B %Y, %R"`"
 echo "System:         `uname -srmo`"
-echo "Type:           ${RPI_TYPE}"
+echo "RPi Type:       ${RPI_TYPE}"
+if [ -f /proc/device-tree/hat/product_id ]; then
+echo "HAT:            ${HAT_PRODUCT}/${HAT_VENDOR}"
+fi
 echo "CPU Temperatur: $((${CPU_TEMP}/1000))*C"
 echo "Speicher frei:  ${MEM_PERCENT}% (${MEM_AVAI_MB}MB / ${MEM_TOTAL_MB}MB)"
-echo "SD Karte frei:  ${SD_PERCENT}% (${SD_FREE}B / ${SD_SIZE}B)"
+echo "SD Karte frei:  ${SD_PERCENT}% ( ${SD_FREE}B /  ${SD_SIZE}B)"
 echo "Laufzeit:       ${UPTIME}"
 
