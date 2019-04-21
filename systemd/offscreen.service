@@ -9,7 +9,7 @@ RequiresMountsFor=/boot
 [Service]
 User=root
 Type=oneshot
-ExecStart=/usr/bin/fbi -T 1 -d /dev/fb1 --noverbose -a /usr/share/png/switch_off.png
+ExecStart=/usr/bin/fbi -T 1 -d /dev/fb1 --noverbose -a /usr/share/png/turn_off.png
 RemainAfterExit=yes
 
 [Install]
