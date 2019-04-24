@@ -16,7 +16,7 @@
       <img src="img/GC2.png" style="position:absolute;left:10px;top:20px;width:100px">
       <img src="img/GC2n.png" style="position:absolute;right:10px;top:20px;width:100px">
       <h1 class="project-name">Raspjamming</h1>
-      <h2 class="project-tagline">The ultimate Raspberry Pi Jam</h2>
+      <h2 class="project-tagline">The ultimate Raspberry Pi Jam experience</h2>
       <!-- 
       <a href="http://strohmayers.com/Blockly-gPIo/" class="btn">Run</a>
       <a href="https://github.com/GrazerComputerClub/Blockly-gPIo" class="btn">View on GitHub</a>
@@ -46,6 +46,55 @@
 <p>
   GPIOs:</br>
 <img src="img/PinOut-RPi.png" alt="Raspberry Pi GPIOs">
+</p>
+
+<p>
+  GC2xHAT:</br>
+<ul>
+<li><strong>7-Segment Display</strong> - 4-Digits TM1637 (Proprietary 2-Wire Bus)<br>
+CLK  ... GPIO23<br>
+DIO  ... GPIO24</li>
+<li><strong>Sensors</strong>
+<ul>
+<li>DHT11/DHT22/AM2302 (Proprietary 1-Wire Bus) - Humidity &amp; Temperature (GPIO22, External Pull-up)</li>
+<li>AMD2320/AMD2322 (I2C Bus) - Humidity &amp; Temperature</li>
+<li>DS18B20 (1-Wire Bus) - Temperature (GPIO04, External Pull-up)</li>
+<li>HC-SR04 (Proprietary Interface) - Distance<br>
+TRIGGER ... GPIO17<br>
+ECHO ... GPIO27 (External 5V to 3V divider for input)</li>
+</ul>
+</li>
+<li><strong>Traffic Light</strong>
+<ul>
+<li>LED red (GPIO16, Active High, Default off)</li>
+<li>LED yellow/orange (GPIO20, Active High, Default off)</li>
+<li>LED green (GPIO21, Active High, Default off)</li>
+</ul>
+</li>
+<li><strong>Switches</strong>
+<ul>
+<li>S1 (GPIO13, Active High, Default Low)</li>
+<li>S2 (GPIO19, Active High, Default Low)</li>
+<li>S3 (GPIO26, Active High, Default Low)</li>
+</ul>
+</li>
+<li><strong>Buzzer</strong> (GPIO18, Active High, Default off)</li>
+<li><strong>ATmega 328P Sockel</strong> Programming/Testing<br>
+RESET ... GPIO25 (Active Low, Default Low with no Power, Default High with Power)<br>
+MOSI  ... GPIO10<br>
+MISO  ... GPIO09<br>
+SCK   ... GPIO11</li>
+<li><strong>ESP-01 Sockel</strong> (ESP8266) Programming/Testing<br>
+RST   ... GPIO06 (Active Low, Default High)<br>
+GPIO0 ... GPIO12 (High ... Programming, Low ... Flash-Boot, Default Low)<br>
+TXD   ... GPIO14<br>
+RXD   ... GPIO15</li>
+<li>Power Switch for ATmega and ESP-01 (GPIO05, Active Low, Default off)</li>
+<li>HAT EEPROM (I2C Bus)<br>
+I2C0, A0-A2 Low</li>
+</ul>
+<img src="img/GC2xHAT-circuit_diagram.png" alt="GC2xHAT Schaltplan">
+
 </p>
 
       <footer class="site-footer">
