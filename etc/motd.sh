@@ -20,9 +20,9 @@ SD_SIZE_MB=`df | grep /dev/root | awk {'print $2}'`
 SD_FREE=`df -h | grep /dev/root | awk {'print $4}'`
 SD_FREE_MB=`df | grep /dev/root | awk {'print $4}'`
 SD_PERCENT=$((${SD_FREE_MB}*100/${SD_SIZE_MB}))
-HAT_PRODUCT_ID=$(tr -d '\0' < /proc/device-tree/hat/product_id)
-HAT_PRODUCT=$(tr -d '\0' < /proc/device-tree/hat/product)
-HAT_VENDOR=$(tr -d '\0' < /proc/device-tree/hat/vendor)
+HAT_PRODUCT_ID=`cat /proc/device-tree/hat/product_id 2> /dev/null | tr -d '\0'` 
+HAT_PRODUCT=`cat /proc/device-tree/hat/product    2> /dev/null | tr -d '\0'` 
+HAT_VENDOR=`cat /proc/device-tree/hat/vendor     2> /dev/null | tr -d '\0'` 
 
 echo "\033[0;32m
     .~~.   .~~.
@@ -35,7 +35,8 @@ echo "\033[0;32m
    (  : '~' :  )
     '~ .~~~. ~'
         '~'"
-echo "\033[1;37m      ___   ___  ____ 
+echo "\033[1;37m
+      ___   ___  ____ 
      / __) / __)(___ \\
     ( (_ \( (__  / __/ 
  by  \___/ \___)(____)  GRAZER COMPUTER CLUB
