@@ -53,11 +53,11 @@ if [ -f /proc/device-tree/hat/product_id ]; then
 echo "HAT:            ${HAT_PRODUCT}/${HAT_VENDOR}"
 fi
 if [ -f /sys/bus/w1/devices/w1_bus_master1/w1_master_slaves ]; then
-echo "CPU/SYS Temp.:  $((${CPU_TEMP}/1000)) / ${SYS_TEMP}"
+echo "CPU/SYS Temp.:  $((${CPU_TEMP}/1000))°C / ${SYS_TEMP}°C"
 else 
-echo "CPU Temp.:      $((${CPU_TEMP}/1000)) °C"
+echo "CPU Temp.:      $((${CPU_TEMP}/1000))°C"
 fi 
-echo "Speicher frei:  ${MEM_PERCENT}% (${MEM_AVAI_MB}MB / ${MEM_TOTAL_MB}MB)"
-echo "SD Karte frei:  ${SD_PERCENT}% ( ${SD_FREE}B /  ${SD_SIZE}B)"
+echo "Speicher frei:  ${MEM_PERCENT}% (${MEM_AVAI_MB}MB von ${MEM_TOTAL_MB}MB)"
+echo "SD Karte frei:  ${SD_PERCENT}% ( ${SD_FREE}B von  ${SD_SIZE}B)"
 echo "Laufzeit:       ${UPTIME}"
 
