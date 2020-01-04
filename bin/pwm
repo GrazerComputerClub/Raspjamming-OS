@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# at GPIO12 a NPN-Transistor with 1 KOhm base resistor 
+# PWM conflicts with analog audio
+
 # 30000 ms = 200 Hz
 PERIOD=30000 
 PERIOD_FINE_LIMIT=25000
