@@ -1,0 +1,14 @@
+#!/bin/bash
+if [ ! -f /dev/shm/nbench-byte-2.2.3/nbench ]; then
+  tar xzvf /usr/local/bin/nbench-byte-2.2.3.tar.gz -C /dev/shm
+  make -C /dev/shm/nbench-byte-2.2.3/
+fi
+echo -e "\n\n Start nbench" >> ~/nbench.txt
+python /usr/local/bin/bcmstat >> ~/nbench.txt  &
+bcmstat_pid=$!
+sleep 5 
+kill -KILL $bcmstat_pid
+echo -e "\n" >> ~/nbench.txt
+script -c 'cd /dev/shm/nbench-byte-2.2.3 && ./nbench' | tee -a ~/nbench.txt
+
+
