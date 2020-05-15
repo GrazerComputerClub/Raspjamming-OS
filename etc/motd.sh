@@ -42,7 +42,7 @@ echo "\033[1;37m
       ___   ___  ____ 
      / __) / __)(___ \\
     ( (_ \( (__  / __/ 
- by  \___/ \___)(____)  GRAZER COMPUTER CLUB
+ by  \___/ \___)(____)  GRAZER COMPUTER CLUB     \033[0;37mhttps://gc2.at
 "
 
 echo -n "\033[0;37m"
