@@ -7,7 +7,6 @@ echo -n "Status: "
 ping -c 1 ${CONNECT_NAME} > /dev/null 2>&1  
 if [ $? -eq 0 ]; then
   echo "Raspberry Pi found"
-  CONNECT_NAME="raspberrypi.local"
 else
   echo "Raspberry Pi not found"
   CONNECT_NAME="bananapi.local"
