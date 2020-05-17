@@ -1,13 +1,26 @@
 #!/bin/bash
 
-echo "searching for raspberrypi.local... " 
+CONNECT_NAME="raspberrypi.local"
+BOARD_NAME="Raspberry Pi"
+echo "searching for ${BOARD_NAME} (${CONNECT_NAME})... " 
 echo -n "Status: " 
-ping -c 1 raspberrypi.local > /dev/null 2>&1  
+ping -c 1 ${CONNECT_NAME} > /dev/null 2>&1  
 if [ $? -eq 0 ]; then
   echo "Raspberry Pi found"
+  CONNECT_NAME="raspberrypi.local"
 else
-  echo "Raspberry Pi not found, please connect board"
-  exit 1
+  echo "Raspberry Pi not found"
+  CONNECT_NAME="bananapi.local"
+  BOARD_NAME="Banana Pi"
+  echo "searching for ${BOARD_NAME} (${CONNECT_NAME})... " 
+  echo -n "Status: " 
+  ping -c 1 ${CONNECT_NAME} > /dev/null 2>&1  
+  if [ $? -eq 0 ]; then
+    echo "Banana Pi found"
+  else
+    echo -e "\nRaspberry/Banana Pi not found, please connect board"
+    exit 1
+  fi
 fi
 echo
 
@@ -19,7 +32,7 @@ do
     RPiConnection=$connection
     #LocalRPiIp=$(ifconfig $connection | grep "inet " | cut -d ':' -f 2 | cut -d ' ' -f 1)
     LocalRPiIp=$(ifconfig $connection | awk '/inet / {print $2}')
-    echo "found Raspberry Pi connected to local IP: $LocalRPiIp"  
+    echo "found ${BOARD_NAME} connected to local IP: $LocalRPiIp"  
   else
     # Hopefully there is just another connected device
     # Otherwise we asume that all connected devices except
@@ -29,23 +42,31 @@ do
   fi
 done
 
+echo
 if [ -z $RPiConnection ] ; then
-  echo Raspberry Pi network device not found
-  exit
+  echo ${BOARD_NAME} network device not found, no internet forward to host
+  
+  echo
+  echo "Connecting to ${BOARD_NAME}"
+  echo --------------------------------------------------------------
+  echo Please enter password of ${BOARD_NAME} user \'pi\' :
+  echo --------------------------------------------------------------
+
+  ssh -X  pi@${CONNECT_NAME}
+else
+  echo Activate Internet forward on host \(executed as root\)...
+  echo -n "sudo sysctl -w net.ipv4.ip_forward=1 > "
+  sudo sysctl -w net.ipv4.ip_forward=1
+  echo sudo iptables -t nat -A POSTROUTING -o $InetDevice -j MASQUERADE
+  sudo iptables -t nat -A POSTROUTING -o $InetDevice -j MASQUERADE
+
+  echo
+  echo "Connecting to ${BOARD_NAME} and will set gateway to host (${LocalRPiIp})"
+  echo --------------------------------------------------------------
+  echo Please enter password of ${BOARD_NAME} user \'pi\' :
+  echo --------------------------------------------------------------
+
+  ssh -X  pi@${CONNECT_NAME} -t "sudo route add default gw ${LocalRPiIp} ; bash -login"
 fi
 
-echo
-echo Activate Internet forward on host \(executed as root\)...
-echo -n "sudo sysctl -w net.ipv4.ip_forward=1 > "
-sudo sysctl -w net.ipv4.ip_forward=1
-echo sudo iptables -t nat -A POSTROUTING -o $InetDevice -j MASQUERADE
-sudo iptables -t nat -A POSTROUTING -o $InetDevice -j MASQUERADE
-echo
-
-echo "Connecting to Raspberry Pi and set gateway to host (${LocalRPiIp})"
-echo --------------------------------------------------------------
-echo Please enter password of Raspberry Pi user \'pi\' :
-echo --------------------------------------------------------------
-
-ssh -X  pi@raspberrypi.local -t "sudo route add default gw ${LocalRPiIp} ; bash -login"
 
