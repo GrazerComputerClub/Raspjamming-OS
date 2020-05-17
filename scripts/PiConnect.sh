@@ -30,7 +30,7 @@ do
   if [ $(ifconfig ${connection} | egrep "01:02:03:04:|enp0s20u|192.168.138." | wc -l) -gt 0 ]; then
     RPiConnection=$connection
     #LocalRPiIp=$(ifconfig $connection | grep "inet " | cut -d ':' -f 2 | cut -d ' ' -f 1)
-    LocalRPiIp=$(ifconfig $connection | awk '/inet / {print $2}')
+    LocalRPiIp=$(ifconfig $connection | awk '/inet / {print $2}' | sed 's/.*://g')
     echo "found ${BOARD_NAME} connected to local IP: $LocalRPiIp"  
   else
     # Hopefully there is just another connected device
