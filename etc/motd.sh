@@ -2,7 +2,7 @@
 
 RaspberryPiBoardLogo(){
 echo -n "\033[0;32m
-    .~~.   .~~.
+    .~~.   .~~. \033[0;31m Raspberry Pi 
    '. \ ' ' / .'\033[0;31m
     .~ .~~~..~.    \033[0;37m    ___                  _                  _          \033[0;31m
    : .~.'~'.~. :   \033[0;37m   / _ \___ ____ ___    (_)__  __ _  __ _  (_)__  ___  \033[0;31m
@@ -16,7 +16,7 @@ echo -n "\033[0;32m
 
 BananaPiBoardLogo() {
 echo -n "\033[0;94m
- , ,\033[0;93m.-.   \033[0;94m      _
+ , ,\033[0;93m.-.\033[0;94m         _  Banana Pi M2 Zero 
  | |\033[0;93m)))   \033[0;94m     (_)   \033[0;37m  ___                  _                  _          \033[0;94m
  | |\033[0;93mvV \033[0;94m  ___   | |   \033[0;37m / _ \___ ____ ___    (_)__  __ _  __ _  (_)__  ___  \033[0;94m
  | '_ \ | '_ \ | | \033[0;37m  / , _/ _ (_-< / _ \  / / _ \/  ' \/  ' \/ / _ \/ _ \ \033[0;94m
@@ -27,26 +27,39 @@ echo -n "\033[0;94m
 }
 
 
+UnknownBoardLogo() {
+echo -n "\033[0;33m
+      _____   Unknown hardware - expect the unexpected  
+     / ___ \       \033[0;37m    ___                  _                  _          \033[0;33m
+    ( (   ) )      \033[0;37m   / _ \___ ____ ___    (_)__  __ _  __ _  (_)__  ___  \033[0;33m
+     \/  / /       \033[0;37m  / , _/ _ (_-< / _ \  / / _ \/  ' \/  ' \/ / _ \/ _ \ \033[0;33m
+        ( (        \033[0;37m /_/|_|\_._/___/ .__/_/ /\_,_/_/_/_/_/_/_/_/_//_/\_, / \033[0;33m
+        |_|        \033[0;37m              /_/  |___/                        /___/  \033[0;33m
+         _          \033[37;100m`cat /etc/raspjamming_version`\e[0;33m
+        (_)                              \033[0;37mhttp://raspjamming.gc2.at \033[0;33m"
+
+}
+
 GC2Logo() {
 echo -n "\033[0;37m
-   ______
-  /     /
- / ▄███▀   ████▄
-|  ██____   ▄▄██
-|  ██    | ██▀▀    \033[1;37m GRAZER COMPUTER CLUB  \033[0;37mhttps://gc2.at
- \ ▀████ | ▀████
-  \______|
+    ______
+   /     /
+  / ▄███▀   ████▄
+ |  ██____   ▄▄██
+ |  ██    | ██▀▀   \033[1;37m GRAZER COMPUTER CLUB  \033[0;37mhttps://gc2.at
+  \ ▀████ | ▀████
+   \______|
 "
 }
 
 GC2LogoSmall() {
 echo -n "\033[0;37m
-   _____
-  /    /
- / ▄▀▀▀   ▀▀▀█
-|  █----. ▄▀▀   \033[1;37m GRAZER COMPUTER CLUB     \033[0;37mhttps://gc2.at
- \  ▀▀▀ | ▀▀▀▀
-  \`-----´
+     _____
+    /    /
+   / ▄▀▀▀   ▀▀▀█
+  |  █----. ▄▀▀   \033[1;37m GRAZER COMPUTER CLUB   \033[0;37mhttps://gc2.at
+   \  ▀▀▀ | ▀▀▀▀
+    \`-----´
 "
 }
 
@@ -82,13 +95,18 @@ RASPBIAN_VERSION=`lsb_release -d | cut -f 2`
 BOARD_MODEL=`cat /proc/device-tree/model`
 #echo $BOARD_MODEL
 case $BOARD_MODEL in
- Raspberry* )
+ Raspberry\ Pi* )
   RaspberryPiBoardLogo
   ;;
- * )
+ Banana\ Pi\ M2\ Zero* )
   BananaPiBoardLogo
   ;;
+ * )
+  UnknownBoardLogo
+  ;;
 esac
+  UnknownBoardLogo
+  BananaPiBoardLogo
 GC2LogoSmall
 
 echo -n "\033[0;37m"
