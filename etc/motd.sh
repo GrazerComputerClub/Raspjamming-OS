@@ -36,7 +36,6 @@ echo -n "\033[0;37m
 |  ██    | ██▀▀    \033[1;37m GRAZER COMPUTER CLUB  \033[0;37mhttps://gc2.at
  \ ▀████ | ▀████
   \______|
-
 "
 }
 
@@ -48,7 +47,6 @@ echo -n "\033[0;37m
 |  █----. ▄▀▀   \033[1;37m GRAZER COMPUTER CLUB     \033[0;37mhttps://gc2.at
  \  ▀▀▀ | ▀▀▀▀
   \`-----´
-
 "
 }
 
