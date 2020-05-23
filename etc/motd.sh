@@ -105,8 +105,6 @@ case $BOARD_MODEL in
   UnknownBoardLogo
   ;;
 esac
-  UnknownBoardLogo
-  BananaPiBoardLogo
 GC2LogoSmall
 
 echo -n "\033[0;37m"
