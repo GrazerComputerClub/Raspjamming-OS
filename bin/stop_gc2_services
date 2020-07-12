@@ -1,0 +1,5 @@
+#!/bin/bash
+service mcp3202 stop
+service blockly-gpio stop
+service lighttpd stop
+service dmxvnc stop
