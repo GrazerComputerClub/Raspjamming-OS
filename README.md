@@ -1,4 +1,4 @@
-# Raspjamming OS Homepage
+# Raspjamming OS Website
 
 [http://GrazerComputerClub.github.io/Raspjamming-OS/](http://GrazerComputerClub.github.io/Raspjamming-OS/)
 
