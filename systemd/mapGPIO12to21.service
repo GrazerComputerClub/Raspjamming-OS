@@ -1,0 +1,13 @@
+[Unit]
+Description=GPIO mapping 12 to 21
+
+[Service]
+Type=simple
+User=pi
+ExecStart=/usr/bin/python3 /usr/local/bin/mapGPIO12to21.py
+ExecStopPost=/usr/bin/gpio -g write 21 0 
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target
+
