@@ -4,7 +4,7 @@ if [ -f "/boot/pico-8/pico8" ] ; then
 	systemctl start pico8
 	# Start framebuffer copying process in the background
 	sleep 2
-	systemctl start fbcp
+	systemctl is-active --quiet fbcp || systemctl start fbcp 
 	/usr/local/bin/bkled init
 	#systemctl start pwm	
 	#systemctl start mcp3202	
