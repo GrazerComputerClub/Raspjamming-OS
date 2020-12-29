@@ -7,6 +7,6 @@ if [ -f "/boot/pico-8/pico8" ] ; then
 	systemctl start fbcp
 	/usr/local/bin/bkled init
 	#systemctl start pwm	
-	systemctl start mcp3202	
+	#systemctl start mcp3202	
 	systemctl restart triggerhappy
 fi
