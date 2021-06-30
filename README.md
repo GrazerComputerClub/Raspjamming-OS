@@ -1,7 +1,7 @@
 # Raspjamming-Image
 
 
-![MOTD](https://github.com/GrazerComputerClub/Raspjamming-Image/raw/master/Raspjamming_19-07.png)
+![MOTD](https://github.com/GrazerComputerClub/Raspjamming-Image/raw/master/Raspjamming_21-06.png)
 
 
 ## Decription
